@@ -1,0 +1,13 @@
+<h1>Articles</h1>
+
+<div class="container text-center" style="margin-top: 100px;">
+
+<ul>
+  <% @articles.each do |article| %>
+    <li>
+      <%= article.title %>
+    </li>
+  <% end %>
+</ul>
+
+</div>

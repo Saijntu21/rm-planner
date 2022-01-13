@@ -1,0 +1,79 @@
+# MySQL.  Versions 5.0+ are recommended.
+#
+# Install the MYSQL driver
+#   gem install mysql2
+#
+# Ensure the MySQL gem is defined in your Gemfile
+#   gem 'mysql2'
+#
+# And be sure to use new-style password hashing:
+#   http://dev.mysql.com/doc/refman/5.0/en/old-client.html
+#
+default: &default
+  adapter: mysql2
+  encoding: utf8
+  database: global
+  pool: 5
+  variables:
+    sql_mode: STRICT_ALL_TABLES
+  host: <%= ENV['MYSQL_DOCKER_HOST'] || '127.0.0.1'%>
+  port: <%= ENV['MYSQL_DOCKER_PORT'] || '3306' %>
+  username: root
+  password:
+  shards:
+    shard1:
+      host: <%= ENV['MYSQL_DOCKER_HOST'] || '127.0.0.1'%>
+      port: <%= ENV['MYSQL_DOCKER_PORT'] || '3306' %>
+      database: freshfone
+      username: root
+      password: 
+      not_a_shard: false
+      variables:
+        sql_mode: STRICT_ALL_TABLES
+
+development:
+  <<: *default
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or freshfoneion.
+test:
+  adapter: mysql2
+  encoding: utf8
+  database: global_test
+  pool: 5
+  variables:
+    sql_mode: STRICT_ALL_TABLES
+  host: <%= ENV['MYSQL_DOCKER_HOST'] || '127.0.0.1'%>
+  port: <%= ENV['MYSQL_DOCKER_PORT'] || '3306' %>
+  username: root
+  password: 
+  shards:
+    shard1:
+      host: <%= ENV['MYSQL_DOCKER_HOST'] || '127.0.0.1'%>
+      port: <%= ENV['MYSQL_DOCKER_PORT'] || '3306' %>
+      database: freshfone_test
+      username: root
+      password: 
+      not_a_shard: false
+      variables:
+        sql_mode: STRICT_ALL_TABLES
+# As with config/secrets.yml, you never want to store sensitive information,
+# like your database password, in your source code. If your source code is
+# ever seen by anyone, they now have access to your database.
+#
+# Instead, provide the password as a unix environment variable when you boot
+# the app. Read http://guides.rubyonrails.org/configuring.html#configuring-a-database
+# for a full rundown on how to provide these environment variables in a
+# freshfoneion deployment.
+#
+# On Heroku and other platform providers, you may have a full connection URL
+# available as an environment variable. For example:
+#
+#   DATABASE_URL="mysql2://myuser:mypass@localhost/somedatabase"
+#
+# You can use this database configuration with:
+#
+#   freshfoneion:
+#     url: <%= ENV['DATABASE_URL'] %>
+#

@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  architect_id: MyString
+  architect_name: MyString
+
+two:
+  architect_id: MyString
+  architect_name: MyString
